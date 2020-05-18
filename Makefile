@@ -23,7 +23,11 @@ RM					=		rm -rf
 
 MAIN_SRC			=		main.c
 
-PROJ_SRC			=
+PROJ_SRC			=		io.c			\
+							monitor.c		\
+							net.c			\
+							select.c		\
+							socket.c		\
 
 TEST_SRC			=
 
