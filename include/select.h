@@ -10,11 +10,9 @@
 
 #include "socket.h"
 
-enum select_class {
-    SELECT_READ,
-    SELECT_WRITE,
-    SELECT_EXCEPT
-};
+#define SELECT_READ (00000001)
+#define SELECT_WRITE (00000010)
+#define SELECT_EXCEPT (00000100)
 
 typedef struct select_s select_t;
 typedef struct timeval timeval_t;
