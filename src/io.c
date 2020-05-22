@@ -13,11 +13,11 @@
 
 int socket_download(socket_t *sock, int fd, int flags)
 {
-    char tmp[SOCK_SIZE];
+    char tmp[SOCK_SIZE + 1];
     int rbytes, wbytes;
 
     do {
-        memset(tmp, 0, SOCK_SIZE);
+        memset(tmp, 0, sizeof(tmp));
         rbytes = socket_receive(sock, tmp, SOCK_SIZE, flags);
         if (rbytes == -1)
             return (-1);
@@ -27,7 +27,7 @@ int socket_download(socket_t *sock, int fd, int flags)
         if (flags & SOCK_AT_START)
             flags = 0;
     } while (rbytes > 0);
-    return (0);
+    return (rbytes);
 }
 
 int socket_receive(socket_t *sock, char *buf, size_t len, int flags)
@@ -39,22 +39,23 @@ int socket_receive(socket_t *sock, char *buf, size_t len, int flags)
 
 int socket_receivew(socket_t *sock, char **buf, condition_t cond, int flags)
 {
-    char tmp[SOCK_SIZE];
+    char tmp[SOCK_SIZE + 1];
     int rbytes, len = 0;
 
     do {
-        memset(tmp, 0, SOCK_SIZE);
+        memset(tmp, 0, sizeof(tmp));
         rbytes = socket_receive(sock, tmp, SOCK_SIZE, flags);
         if (rbytes == -1)
             return (-1);
         len += rbytes;
         *buf = realloc(*buf, len + 1);
+        memset(&(*buf)[len - rbytes], 0, rbytes + 1);
         *buf = strncat(*buf, tmp, rbytes);
         (*buf)[len] = 0;
         if (flags & SOCK_AT_START)
             flags = 0;
-    } while (!cond(rbytes, tmp));
-    return (0);
+    } while (!cond(rbytes, tmp) && (rbytes > 0));
+    return (rbytes);
 }
 
 int socket_send(socket_t *sock, const char *buf, size_t len, int flags)
@@ -66,11 +67,11 @@ int socket_send(socket_t *sock, const char *buf, size_t len, int flags)
 
 int socket_upload(socket_t *sock, int fd, int flags)
 {
-    char tmp[SOCK_SIZE];
+    char tmp[SOCK_SIZE + 1];
     int rbytes, wbytes;
 
     do {
-        memset(tmp, 0, SOCK_SIZE);
+        memset(tmp, 0, sizeof(tmp));
         rbytes = read(fd, tmp, SOCK_SIZE);
         if (rbytes == -1)
             return (-1);
@@ -80,5 +81,5 @@ int socket_upload(socket_t *sock, int fd, int flags)
         if (flags & SOCK_AT_START)
             flags = 0;
     } while (rbytes > 0);
-    return (0);
+    return (wbytes);
 }
