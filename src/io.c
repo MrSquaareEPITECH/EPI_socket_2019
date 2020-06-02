@@ -39,22 +39,21 @@ int socket_receive(socket_t *sock, char *buf, size_t len, int flags)
 
 int socket_receivew(socket_t *sock, char **buf, condition_t cond, int flags)
 {
-    char tmp[SOCK_SIZE + 1];
+    char tmp[2];
     int rbytes, len = 0;
 
     do {
         memset(tmp, 0, sizeof(tmp));
-        rbytes = socket_receive(sock, tmp, SOCK_SIZE, flags);
+        rbytes = socket_receive(sock, tmp, 1, flags);
         if (rbytes == -1)
             return (-1);
         len += rbytes;
         *buf = realloc(*buf, len + 1);
         memset(&(*buf)[len - rbytes], 0, rbytes + 1);
         *buf = strncat(*buf, tmp, rbytes);
-        (*buf)[len] = 0;
         if (flags & SOCK_AT_START)
             flags = 0;
-    } while (!cond(rbytes, tmp) && (rbytes > 0));
+    } while (!cond(rbytes, *buf) && (rbytes > 0));
     return (rbytes);
 }
 
