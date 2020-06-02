@@ -29,7 +29,8 @@ PROJ_SRC			=		io.c			\
 							select.c		\
 							socket.c		\
 
-TEST_SRC			=
+TEST_SRC			=		test_select.c	\
+							test_socket.c	\
 
 CFLAGS				+=		-I $(INCL_DIR)
 CFLAGS				+=		-W -Wall -Wextra -Werror
