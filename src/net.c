@@ -43,7 +43,7 @@ int socket_connect(socket_t *sock, int type)
     return (0);
 }
 
-int socket_listen(socket_t *sock, int max)
+int socket_listen(const socket_t *sock, int max)
 {
     if (listen(sock->fd, max) == -1)
         return (-1);

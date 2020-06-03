@@ -7,7 +7,7 @@
 
 #include "select.h"
 
-void select_set(select_t *sel, socket_t *sock, int classes)
+void select_set(select_t *sel, const socket_t *sock, int classes)
 {
     if (classes & SELECT_READ)
         FD_SET(sock->fd, &sel->read);
@@ -17,7 +17,7 @@ void select_set(select_t *sel, socket_t *sock, int classes)
         FD_SET(sock->fd, &sel->except);
 }
 
-int select_is_set(select_t *sel, socket_t *sock, int classes)
+int select_is_set(const select_t *sel, const socket_t *sock, int classes)
 {
     int is_set = 1;
 
@@ -31,7 +31,7 @@ int select_is_set(select_t *sel, socket_t *sock, int classes)
     return (is_set);
 }
 
-void select_clear(select_t *sel, socket_t *sock, int classes)
+void select_clear(select_t *sel, const socket_t *sock, int classes)
 {
     if (classes & SELECT_READ)
         FD_CLR(sock->fd, &sel->read);
