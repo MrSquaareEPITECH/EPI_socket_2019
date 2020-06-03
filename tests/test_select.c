@@ -18,7 +18,7 @@ Test(select_create, valid)
 
 Test(select_delete, valid)
 {
-    select_t *param1 = select_create(NULL);;
+    select_t *param1 = select_create(NULL);
 
     select_delete(param1);
 }
