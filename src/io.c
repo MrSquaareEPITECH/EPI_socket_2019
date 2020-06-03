@@ -11,7 +11,7 @@
 
 #include "socket.h"
 
-int socket_download(socket_t *sock, int fd, int flags)
+int socket_download(const socket_t *sock, int fd, int flags)
 {
     char tmp[SOCK_SIZE + 1];
     int rbytes, wbytes;
@@ -30,14 +30,14 @@ int socket_download(socket_t *sock, int fd, int flags)
     return (rbytes);
 }
 
-int socket_receive(socket_t *sock, char *buf, size_t len, int flags)
+int socket_receive(const socket_t *sock, char *buf, size_t len, int flags)
 {
     int rbytes = recv(sock->fd, buf, len, flags);
 
     return (rbytes);
 }
 
-int socket_receivew(socket_t *sock, char **buf, condition_t cond, int flags)
+int socket_receivew(const socket_t *sock, char **buf, condition_t condition, int flags)
 {
     char tmp[2];
     int rbytes, len = 0;
@@ -53,18 +53,18 @@ int socket_receivew(socket_t *sock, char **buf, condition_t cond, int flags)
         *buf = strncat(*buf, tmp, rbytes);
         if (flags & SOCK_AT_START)
             flags = 0;
-    } while (!cond(rbytes, *buf) && (rbytes > 0));
+    } while (!condition(rbytes, *buf) && (rbytes > 0));
     return (rbytes);
 }
 
-int socket_send(socket_t *sock, const char *buf, size_t len, int flags)
+int socket_send(const socket_t *sock, const char *buf, size_t len, int flags)
 {
     int wbytes = send(sock->fd, buf, len, flags);
 
     return (wbytes);
 }
 
-int socket_upload(socket_t *sock, int fd, int flags)
+int socket_upload(const socket_t *sock, int fd, int flags)
 {
     char tmp[SOCK_SIZE + 1];
     int rbytes, wbytes;

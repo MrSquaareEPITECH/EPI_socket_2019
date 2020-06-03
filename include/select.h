@@ -25,9 +25,9 @@ struct select_s {
 };
 
 select_t *select_create(timeval_t *timeout);
-void select_set(select_t *sel, socket_t *sock, int classes);
-int select_is_set(select_t *sel, socket_t *sock, int classes);
-void select_clear(select_t *sel, socket_t *sock, int classes);
+void select_set(select_t *sel, const socket_t *sock, int classes);
+int select_is_set(const select_t *sel, const socket_t *sock, int classes);
+void select_clear(select_t *sel, const socket_t *sock, int classes);
 int select_monitor(select_t *sel);
 void select_delete(select_t *select);
 
