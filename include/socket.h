@@ -29,8 +29,6 @@ struct socket_s {
 
 typedef int (*condition_t)(int rbytes, const char *buf);
 
-#define sockaddr(addr) ((sockaddr_t *)(addr))
-
 socket_t *socket_create(uint32_t addr, uint32_t family, uint16_t port);
 int socket_accept(socket_t *sock, socket_t *peer);
 int socket_bind(socket_t *sock, int type);
@@ -38,7 +36,8 @@ int socket_connect(socket_t *sock, int type);
 int socket_listen(const socket_t *sock, int max);
 int socket_download(const socket_t *sock, int fd, int flags);
 int socket_receive(const socket_t *sock, char *buf, size_t len, int flags);
-int socket_receivew(const socket_t *sock, char **buf, condition_t cond, int flags);
+int socket_receivew(
+    const socket_t *sock, char **buf, int flags, condition_t cond);
 int socket_send(const socket_t *sock, const char *buf, size_t len, int flags);
 int socket_upload(const socket_t *sock, int fd, int flags);
 void socket_delete(socket_t *sock);

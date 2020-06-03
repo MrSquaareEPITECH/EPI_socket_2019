@@ -5,8 +5,8 @@
 ** io.c
 */
 
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 #include "socket.h"
@@ -37,7 +37,8 @@ int socket_receive(const socket_t *sock, char *buf, size_t len, int flags)
     return (rbytes);
 }
 
-int socket_receivew(const socket_t *sock, char **buf, condition_t condition, int flags)
+int socket_receivew(
+    const socket_t *sock, char **buf, int flags, condition_t condition)
 {
     char tmp[2];
     int rbytes, len = 0;

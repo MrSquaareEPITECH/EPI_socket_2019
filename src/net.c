@@ -11,7 +11,7 @@ int socket_accept(socket_t *sock, socket_t *peer)
 {
     uint32_t size = sizeof(sock->addr_in);
 
-    sock->fd = accept(peer->fd, sockaddr(&sock->addr_in), &size);
+    sock->fd = accept(peer->fd, (sockaddr_t *)(&sock->addr_in), &size);
     if (sock->fd == -1)
         return (-1);
     return (0);
@@ -25,7 +25,7 @@ int socket_bind(socket_t *sock, int type)
 
     uint32_t size = sizeof(sock->addr_in);
 
-    if (bind(sock->fd, sockaddr(&sock->addr_in), size) == -1)
+    if (bind(sock->fd, (sockaddr_t *)(&sock->addr_in), size) == -1)
         return (-1);
     return (0);
 }
@@ -38,7 +38,7 @@ int socket_connect(socket_t *sock, int type)
 
     uint32_t size = sizeof(sock->addr_in);
 
-    if (connect(sock->fd, sockaddr(&sock->addr_in), size) == -1)
+    if (connect(sock->fd, (sockaddr_t *)(&sock->addr_in), size) == -1)
         return (-1);
     return (0);
 }

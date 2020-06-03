@@ -5,9 +5,9 @@
 ** select.c
 */
 
-#include <stdlib.h>
-
 #include "select.h"
+
+#include <stdlib.h>
 
 select_t *select_create(timeval_t *timeout)
 {
