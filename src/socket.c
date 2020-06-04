@@ -26,6 +26,5 @@ void socket_delete(socket_t *sock)
 {
     if (sock == NULL)
         return;
-    close(sock->fd);
     free(sock);
 }
