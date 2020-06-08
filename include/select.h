@@ -10,9 +10,9 @@
 
 #include "socket.h"
 
-#define SELECT_READ (00000001)
-#define SELECT_WRITE (00000010)
-#define SELECT_EXCEPT (00000100)
+#define SELECT_READ (0x1)
+#define SELECT_WRITE (0x2)
+#define SELECT_EXCEPT (0x4)
 
 typedef struct select_s select_t;
 typedef struct timeval timeval_t;
@@ -21,7 +21,7 @@ struct select_s {
     fd_set read, mread;
     fd_set write, mwrite;
     fd_set except, mexcept;
-    timeval_t *timeout;
+    timeval_t *timeout, mtimeout;
 };
 
 select_t *select_create(timeval_t *timeout);

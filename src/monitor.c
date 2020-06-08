@@ -46,9 +46,10 @@ int select_monitor(select_t *sel)
     sel->mread = sel->read;
     sel->mwrite = sel->write;
     sel->mexcept = sel->except;
+    sel->mtimeout = *sel->timeout;
 
     int code = select(
-        FD_SETSIZE, &sel->mread, &sel->mwrite, &sel->mexcept, sel->timeout);
+        FD_SETSIZE, &sel->mread, &sel->mwrite, &sel->mexcept, &sel->mtimeout);
 
     return (code);
 }

@@ -16,7 +16,7 @@
 #endif // SOCK_SIZE
 
 #define SOCK_AUTO (0)
-#define SOCK_AT_START (10000000)
+#define SOCK_AT_START (0x100000)
 
 typedef struct socket_s socket_t;
 typedef struct sockaddr sockaddr_t;
