@@ -28,6 +28,7 @@ PROJ_SRC			=		io.c			\
 							net.c			\
 							select.c		\
 							socket.c		\
+							util.c			\
 
 TEST_SRC			=		test_select.c	\
 							test_socket.c	\
