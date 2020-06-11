@@ -5,6 +5,8 @@
 ** net.c
 */
 
+#include <unistd.h>
+
 #include "socket.h"
 
 int socket_accept(socket_t *sock, socket_t *peer)
@@ -48,4 +50,11 @@ int socket_listen(const socket_t *sock, int max)
     if (listen(sock->fd, max) == -1)
         return (-1);
     return (0);
+}
+
+int socket_close(socket_t *sock)
+{
+    int rc = close(sock->fd);
+
+    return (rc);
 }
