@@ -50,6 +50,8 @@ int socket_receivew(
             return (-1);
         len += rbytes;
         *buf = realloc(*buf, len + 1);
+        if (*buf == NULL)
+            return (-1);
         memset(&(*buf)[len - rbytes], 0, rbytes + 1);
         *buf = strncat(*buf, tmp, rbytes);
         if (flags & SOCK_AT_START)
