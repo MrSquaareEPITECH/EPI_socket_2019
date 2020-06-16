@@ -5,6 +5,8 @@
 ** monitor.c
 */
 
+#include <stddef.h>
+
 #include "select.h"
 
 void select_set(select_t *sel, const socket_t *sock, int classes)
@@ -43,13 +45,19 @@ void select_clear(select_t *sel, const socket_t *sock, int classes)
 
 int select_monitor(select_t *sel)
 {
+    int code = 0;
+    timeval_t *timeout = NULL;
+
     sel->mread = sel->read;
     sel->mwrite = sel->write;
     sel->mexcept = sel->except;
-    sel->mtimeout = *sel->timeout;
+    if (sel->timeout) {
+        sel->mtimeout = *sel->timeout;
+        timeout = &sel->mtimeout;
+    }
 
-    int code = select(
-        FD_SETSIZE, &sel->mread, &sel->mwrite, &sel->mexcept, &sel->mtimeout);
+    code = \
+        select(FD_SETSIZE, &sel->mread, &sel->mwrite, &sel->mexcept, timeout);
 
     return (code);
 }
