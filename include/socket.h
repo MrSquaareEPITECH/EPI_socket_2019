@@ -8,8 +8,10 @@
 #ifndef EPI_SOCKET_2019_INCLUDE_SOCKET_H
 #define EPI_SOCKET_2019_INCLUDE_SOCKET_H
 
+#include <arpa/inet.h>
 #include <netinet/in.h>
 #include <stdint.h>
+#include <sys/socket.h>
 
 #ifndef SOCK_SIZE
 #define SOCK_SIZE (512)

@@ -8,6 +8,8 @@
 #ifndef EPI_SOCKET_2019_INCLUDE_SELECT_H
 #define EPI_SOCKET_2019_INCLUDE_SELECT_H
 
+#include <sys/select.h>
+
 #include "socket.h"
 
 #define SELECT_READ (0x1)
